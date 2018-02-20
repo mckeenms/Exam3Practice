@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Mason McKeen.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -29,7 +29,7 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 ########################################################################
 
 import rosegraphics as rg
-
+import math
 
 def main():
     """ Calls the   TEST   functions in this module. """
@@ -88,8 +88,36 @@ def hourglass(window, n, point, radius, color):
     where n and radius are positive and color is a string that denotes
     a color that rosegraphics understands.
     """
+    xori = point.x
+    yori = point.y
+    x = point.x
+    y = point.y
+    dx = radius
+    for k in range(n):
+        for j in range(k + 1):
+            circle = rg.Circle(rg.Point(x, y), radius)
+            circle.fill_color = color
+            circle.attach_to(window)
+            line = rg.Line(rg.Point(x - radius, y), rg.Point(x + radius, y))
+            line.attach_to(window)
+            x += 2 * dx
+        y -= radius * math.sqrt(3)
+        x -= xori - (dx * (k + 1))
+    x = xori
+    y = yori
+    for k in range(n):
+        for j in range(k + 1):
+            circle2 = rg.Circle(rg.Point(x, y), radius)
+            circle2.fill_color = color
+            circle2.attach_to(window)
+            line = rg.Line(rg.Point(x - radius, y), rg.Point(x + radius, y))
+            line.attach_to(window)
+            x += 2 * dx
+        y += radius * math.sqrt(3)
+        x = xori - (dx * (k + 1))
+    window.render()
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
